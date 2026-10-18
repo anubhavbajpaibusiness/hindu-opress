@@ -1,22 +1,22 @@
 # Hindu College Voicebox
 
-Anonymous complaint & suggestion box for the Hindu College Students' Union
-(University of Delhi). Static frontend in `public/`, three serverless API
-routes in `api/`, shared helpers in `lib/`, and data stored in Upstash Redis.
+Anonymous complaint & suggestion box for Hindu College.
+Static frontend in `public/`, serverless API in `api/`, helpers in `lib/`,
+data in Upstash Redis (one database shared by all college sites).
 
-- **No login, no name, no trace** for students — every submission gets a
-  tracking code (e.g. `HIN-7F3K2Q`) so the student can look up status and
-  any reply later.
-- **Union desk** is protected by a single password and gives the office
-  bearers status changes, replies, and delete.
+| Setting | Value |
+|---|---|
+| Tracking-code prefix | `HIN-XXXXXX` |
+| Redis namespace | `du:hc:voicebox` |
+| Repo / Vercel project | `hindu-opress` |
 
-## Deploy in 5 steps (under 10 minutes)
+## Deploy
+1. Push this folder to GitHub (`https://github.com/anubhavbajpaibusiness/hindu-opress.git`) and import it in Vercel.
+2. Environment variables:
+   - `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` — identical on every college project
+   - `ADMIN_PASSWORD` — unique per college (use a long one)
+   - `REDIS_NAMESPACE` — optional override, defaults to `du:hc:voicebox`. Never reuse another college's value.
 
-### 1. Push to GitHub
-```bash
-git init
-git add .
-git commit -m "hindu-voicebox"
-git branch -M main
-git remote add origin https://github.com/anubhavbajpaibusiness/hindu-opress.git
-git push -u origin main
+## Office bearers
+Edit the `TEAM` array in `public/index.html`. Put photos in `public/images/team/`
+and set `photo: "/images/team/president.jpg"`. An empty `TEAM` shows a "coming soon" card.
